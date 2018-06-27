@@ -59,7 +59,6 @@ export default {
       for (var i = 0; i < data.length; i++) {
         bufView[i + 1] = data.charCodeAt(i)
       }
-      console.log(buf)
       ws.send(buf)
     })
   },
