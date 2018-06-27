@@ -1,14 +1,12 @@
 <template>
   <div>
-    <!-- <h2>All Pods in default namespaces</h3> -->
-    <h3>
-      All Pod in default namespaces:
-      {{ msg }}
-    </h3>
-    <span>Connection ubuntu</span>
-    <div class="container">
-      <my-terminal></my-terminal>
+    <div class="pod_content">
+      <div class="title">All Pod in default namespaces:</div>
+      <div v-if="pods" v-for="(item, index) in pods" :key="index"> * {{ item }}</div>
+      <div v-else>{{ msg }}</div>
     </div>
+    <span class="title">Connection to ubuntu Pod</span>
+    <my-terminal></my-terminal>
   </div>
 </template>
 
@@ -23,7 +21,8 @@ export default {
   },
   data () {
     return {
-      msg: 'No resources found.'
+      msg: 'No resources found.',
+      pods: []
     }
   },
   created () {
@@ -39,7 +38,7 @@ export default {
           var pods = res.data.items.map(data => {
             return data.metadata.name
           })
-          this.msg = pods
+          this.pods = pods
         }
       }).catch(err => {
         console.log(err)
@@ -49,20 +48,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.pod_content {
+  margin: 10px 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.title {
+  font-weight: bold;
+  font-size: 1.17em;
 }
 </style>
